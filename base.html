@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}CollegeMS{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+{% if session.get('logged_in') %}
+<div class="layout">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-icon">🎓</span><span>College<span class="brand-light">MS</span></span></a>
+    <div class="side-label">MAIN MENU</div>
+    <nav>
+      <a class="{% if request.endpoint=='dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">▦ &nbsp; Dashboard</a>
+      <a class="{% if request.endpoint=='students' %}active{% endif %}" href="{{ url_for('students') }}">♙ &nbsp; Students</a>
+      <a class="{% if request.endpoint=='faculty' %}active{% endif %}" href="{{ url_for('faculty') }}">♧ &nbsp; Faculty</a>
+      <a class="{% if request.endpoint=='courses' %}active{% endif %}" href="{{ url_for('courses') }}">▤ &nbsp; Courses</a>
+      <a class="{% if request.endpoint=='attendance' %}active{% endif %}" href="{{ url_for('attendance') }}">◷ &nbsp; Attendance</a>
+      <a class="{% if request.endpoint=='results' %}active{% endif %}" href="{{ url_for('results') }}">✓ &nbsp; Results</a>
+    </nav>
+    <div class="sidebar-bottom"><a href="{{ url_for('logout') }}">↪ &nbsp; Logout</a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><span class="eyebrow">COLLEGE MANAGEMENT</span><strong>{% block heading %}Dashboard{% endblock %}</strong></div><div class="profile"><span class="avatar">A</span><span>Admin</span></div></header>
+    <section class="content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+      <footer>CollegeMS · Academic Administration System</footer>
+    </section>
+  </main>
+</div>
+{% else %}
+{% block auth_content %}{% endblock %}
+{% endif %}
+</body>
+</html>

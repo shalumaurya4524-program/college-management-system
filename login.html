@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Admin Login · CollegeMS{% endblock %}
+{% block auth_content %}
+<div class="login-page">
+  <div class="login-art"><div class="logo-large">🎓</div><h1>College Management System</h1><p>One place for students, faculty, attendance and academic results.</p><div class="login-points"><span>✓ Student records</span><span>✓ Attendance tracking</span><span>✓ Academic results</span></div></div>
+  <div class="login-panel"><form class="login-card" method="post"><span class="eyebrow">WELCOME BACK</span><h2>Admin Login</h2><p class="muted">Sign in to manage your college.</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endif %}{% endwith %}
+    <label>Username</label><input name="username" required placeholder="Enter username" autocomplete="username">
+    <label>Password</label><input type="password" name="password" required placeholder="Enter password" autocomplete="current-password">
+    <button class="btn primary full" type="submit">Sign in →</button><div class="demo-note"><b>Demo login</b><br>Username: <code>admin</code><br>Password: <code>admin123</code></div>
+  </form></div>
+</div>
+{% endblock %}

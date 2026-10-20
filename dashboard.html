@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · CollegeMS{% endblock %}{% block heading %}Dashboard{% endblock %}
+{% block content %}
+<div class="welcome"><div><span class="eyebrow">OVERVIEW</span><h1>Welcome back, Admin 👋</h1><p>Here's what's happening in your college today.</p></div><div class="date-chip">Academic Management</div></div>
+<div class="stats">
+  <div class="stat-card blue"><div class="stat-top"><span>Total Students</span><span class="stat-icon">♙</span></div><strong>{{ counts.students }}</strong><small>Registered students</small></div>
+  <div class="stat-card green"><div class="stat-top"><span>Total Faculty</span><span class="stat-icon">♧</span></div><strong>{{ counts.faculty }}</strong><small>Faculty members</small></div>
+  <div class="stat-card purple"><div class="stat-top"><span>Total Courses</span><span class="stat-icon">▤</span></div><strong>{{ counts.courses }}</strong><small>Available courses</small></div>
+  <div class="stat-card orange"><div class="stat-top"><span>Present Today</span><span class="stat-icon">✓</span></div><strong>{{ counts.attendance }}</strong><small>Attendance entries</small></div>
+</div>
+<div class="two-col">
+  <div class="panel"><div class="panel-head"><div><h2>Recently Added Students</h2><p class="muted">Latest student records from the database</p></div><a class="btn secondary small" href="{{ url_for('students') }}">View all</a></div>
+    <div class="table-wrap"><table><thead><tr><th>Roll No.</th><th>Student</th><th>Department</th><th>Year</th></tr></thead><tbody>
+    {% for s in recent %}<tr><td><span class="roll">{{ s.roll_no }}</span></td><td><div class="person"><span class="mini-avatar">{{ s.name[0] }}</span><span>{{ s.name }}</span></div></td><td>{{ s.department }}</td><td>{{ s.year }}</td></tr>{% else %}<tr><td colspan="4" class="empty">No students yet.</td></tr>{% endfor %}
+    </tbody></table></div>
+  </div>
+  <div class="panel quick-panel"><div class="panel-head"><div><h2>Quick Actions</h2><p class="muted">Go directly to a module</p></div></div>
+    <a class="quick-link" href="{{ url_for('students') }}"><span class="quick-icon blue-bg">＋</span><span><b>Manage Students</b><small>Add or update student details</small></span><span class="arrow">→</span></a>
+    <a class="quick-link" href="{{ url_for('faculty') }}"><span class="quick-icon green-bg">♧</span><span><b>Manage Faculty</b><small>Maintain faculty records</small></span><span class="arrow">→</span></a>
+    <a class="quick-link" href="{{ url_for('attendance') }}"><span class="quick-icon orange-bg">◷</span><span><b>Mark Attendance</b><small>Record present or absent</small></span><span class="arrow">→</span></a>
+    <a class="quick-link" href="{{ url_for('results') }}"><span class="quick-icon purple-bg">✓</span><span><b>Enter Results</b><small>Save marks and semesters</small></span><span class="arrow">→</span></a>
+  </div>
+</div>
+{% endblock %}
